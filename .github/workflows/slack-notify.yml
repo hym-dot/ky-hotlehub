@@ -25,6 +25,19 @@ jobs:
       ACTOR: ${{ github.actor }}
 
     steps:
+      - name: Debug Secrets
+        run: |
+          if [ -z "$SLACK_GENERAL_WEBHOOK" ]; then
+            echo "::error:: SLACK_GENERAL_WEBHOOK 변수가 비어있습니다."
+          else
+            echo "SLACK_GENERAL_WEBHOOK (General): 값 있음 (***)"
+          fi
+
+          if [ -z "$SLACK_REPO_WEBHOOK" ]; then
+            echo "::error:: SLACK_REPO_WEBHOOK 변수가 비어있습니다."
+          else
+            echo "SLACK_REPO_WEBHOOK (Repo): 값 있음 (***)"
+          fi
       - name: Send push message
         if: ${{ github.event_name == 'push' }}
         run: |
